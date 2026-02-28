@@ -49,7 +49,7 @@ jobs:
 
       - name: Ensure namespace exists
         run: |
-          kubectl create namespace $K3S_NAMESPACE --dry-run=client -o yaml | kubectl apply -f -
+          sudo kubectl create namespace $K3S_NAMESPACE --dry-run=client -o yaml | sudo kubectl apply -f -
 
       - name: Deploy Frontend
         run: |
@@ -60,4 +60,4 @@ jobs:
         run: |
           kubectl rollout status deployment/hospital-frontend -n $K3S_NAMESPACE
           kubectl get pods -n $K3S_NAMESPACE
-          kubectl get svc -n $K3S_NAMESPACE
+          kubectl get svc -n $K3S_NAMESPACE 
