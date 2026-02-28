@@ -53,8 +53,8 @@ jobs:
 
       - name: Deploy Frontend
         run: |
-          kubectl apply -n $K3S_NAMESPACE -f k3s/frontend-deployment.yaml
-          kubectl apply -n $K3S_NAMESPACE -f k3s/frontend-service.yaml
+          kubectl apply -n $K3S_NAMESPACE -f k3s/deployment.yaml
+          kubectl apply -n $K3S_NAMESPACE -f k3s/service.yaml
 
       - name: Verify Deployment
         run: |
