@@ -1,15 +1,14 @@
-name: Build & Push Frontend Image
+name: Frontend CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,6 +27,37 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/frontend:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/hospital-front-end:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  k3s:
+    runs-on: [self-hosted, linux]
+    needs: [build-and-push]
+    env:
+      K3S_NAMESPACE: num
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+
+      - name: Ensure namespace exists
+        run: |
+          kubectl create namespace $K3S_NAMESPACE --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Deploy Frontend
+        run: |
+          kubectl apply -n $K3S_NAMESPACE -f k3s/frontend-deployment.yaml
+          kubectl apply -n $K3S_NAMESPACE -f k3s/frontend-service.yaml
+
+      - name: Verify Deployment
+        run: |
+          kubectl rollout status deployment/hospital-frontend -n $K3S_NAMESPACE
+          kubectl get pods -n $K3S_NAMESPACE
+          kubectl get svc -n $K3S_NAMESPACE

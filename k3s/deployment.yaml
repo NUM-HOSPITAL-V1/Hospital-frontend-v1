@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hospital-frontend
+  namespace: num
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hospital-frontend
+  template:
+    metadata:
+      labels:
+        app: hospital-frontend
+    spec:
+      containers:
+      - name: hospital-frontend
+        image: nurlannn/hospital-front-end:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "100m"
+          limits:
+            memory: "100Mi"
+            cpu: "250m"
