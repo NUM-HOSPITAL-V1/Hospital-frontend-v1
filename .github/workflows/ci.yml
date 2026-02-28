@@ -53,11 +53,11 @@ jobs:
 
       - name: Deploy Frontend
         run: |
-          kubectl apply -n $K3S_NAMESPACE -f k3s/deployment.yaml
-          kubectl apply -n $K3S_NAMESPACE -f k3s/service.yaml
+          sudo kubectl apply -n $K3S_NAMESPACE -f k3s/deployment.yaml
+          sudo kubectl apply -n $K3S_NAMESPACE -f k3s/service.yaml
 
       - name: Verify Deployment
         run: |
-          kubectl rollout status deployment/hospital-frontend -n $K3S_NAMESPACE
-          kubectl get pods -n $K3S_NAMESPACE
-          kubectl get svc -n $K3S_NAMESPACE 
+          sudo kubectl rollout status deployment/hospital-frontend -n $K3S_NAMESPACE
+          sudo kubectl get pods -n $K3S_NAMESPACE
+          sudo kubectl get svc -n $K3S_NAMESPACE 
