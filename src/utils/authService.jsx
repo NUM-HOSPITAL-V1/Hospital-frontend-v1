@@ -1,7 +1,7 @@
 /**
  * Authentication service for login and registration
  */
-const API_BASE_URL = "http://localhost:8000/api";
+import API_BASE_URL from "./apiBaseUrl";
 
 const authService = {
   /**

@@ -4,10 +4,9 @@
  */
 
 import { toast } from "react-toastify";
+import API_BASE_URL from "./apiBaseUrl";
 
 export default httpService;
-
-const API_BASE_URL = "http://localhost:8000/api";
 
 /**
  * Get the current auth token from localStorage
