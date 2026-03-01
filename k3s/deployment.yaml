@@ -16,6 +16,7 @@ spec:
       containers:
       - name: hospital-frontend
         image: nurlannn/hospital-front-end:latest
+        imagePullPolicy: Always
         env:
         - name: NEXT_PUBLIC_API_URL
           value: "/api"
