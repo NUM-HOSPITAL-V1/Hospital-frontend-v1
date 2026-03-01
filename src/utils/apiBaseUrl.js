@@ -1,14 +1,2 @@
-const normalizeBaseUrl = (url) => (url || "").replace(/\/+$/, "");
-
-const envApiUrl = normalizeBaseUrl(process.env.NEXT_PUBLIC_API_URL);
-
-const getFallbackApiUrl = () => {
-  if (typeof window !== "undefined" && window.location?.origin) {
-    return `${window.location.origin}/api`;
-  }
-  return "http://hospital-backend:8000/api";
-};
-
-const API_BASE_URL = envApiUrl || getFallbackApiUrl();
-
+const API_BASE_URL = "http://13.60.88.106/api";
 export default API_BASE_URL;
