@@ -6,9 +6,9 @@ const getFallbackApiUrl = () => {
   if (typeof window !== "undefined" && window.location?.origin) {
     return `${window.location.origin}/api`;
   }
-  return "https://13.60.88.106:8000/api";
+  return "http://hospital-backend:8000/api";
 };
 
-const API_BASE_URL = "https://13.60.88.106:8000/api";
+const API_BASE_URL = envApiUrl || getFallbackApiUrl();
 
 export default API_BASE_URL;

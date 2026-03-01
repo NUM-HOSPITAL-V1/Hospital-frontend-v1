@@ -4,11 +4,10 @@ metadata:
   name: hospital-frontend
   namespace: num
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: hospital-frontend
   ports:
   - protocol: TCP
     port: 3000
     targetPort: 3000
-    nodePort: 31001

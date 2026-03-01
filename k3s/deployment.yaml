@@ -18,7 +18,7 @@ spec:
         image: nurlannn/hospital-front-end:latest
         env:
         - name: NEXT_PUBLIC_API_URL
-          value: "http://10.60.88.106:31000/api"
+          value: "/api"
         ports:
         - containerPort: 3000
         resources:
