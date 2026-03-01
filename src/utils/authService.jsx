@@ -19,9 +19,12 @@ const authService = {
         body: JSON.stringify(credentials),
       });
 
+      const contentType = response.headers.get("content-type") || "";
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Нэвтрэхэд алдаа гарлаа!");
+        const errText = contentType.includes("application/json")
+          ? (await response.json()).error
+          : await response.text();
+        throw new Error(errText || "Нэвтрэхэд алдаа гарлаа!");
       }
 
       const data = await response.json();
